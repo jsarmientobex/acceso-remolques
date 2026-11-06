@@ -8,30 +8,37 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Remolques BEX">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-  html,body{margin:0;height:100%;background:#F3F5F8;font-family:"League Spartan","Segoe UI",Roboto,Arial,sans-serif}
-  body{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px);box-sizing:border-box}
   [hidden]{display:none!important}
-  iframe{display:block;width:100%;height:100%;border:0}
-  #cargando{position:fixed;inset:0;display:grid;place-items:center;color:#5F6B7A;font-size:17px;background:#F3F5F8}
+  html,body{margin:0;height:100%;background:#F3F5F8;font-family:"League Spartan","Segoe UI",Roboto,Arial,sans-serif}
+  body{display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}
+  iframe{display:block;width:100%;flex:1 1 auto;border:0}
+  #cargando{position:fixed;inset:0;display:grid;place-items:center;color:#5F6B7A;font-size:17px;background:#F3F5F8;text-align:center}
   #cargando img{width:96px;height:96px;display:block;margin:0 auto 12px}
+  #ayuda{flex:none;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+    background:#FFFFFF;border-top:1px solid #DCE2E9;color:#5F6B7A;font-size:14px;
+    padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px))}
+  #ayuda a{color:#0066CC;font-weight:600;text-decoration:none;border:1px solid #0066CC;border-radius:8px;padding:6px 12px}
 </style>
 </head>
 <body>
 <div id="cargando"><div><img src="icon-192.png" alt="">Cargando…</div></div>
-<!-- ⬇️ Pega aquí la URL de tu aplicación web de Apps Script (termina en /exec) -->
-<iframe id="app" title="Acceso de remolques a Mantenimiento"
-  src="https://script.google.com/macros/s/AKfycbw9TxJidIjmVbEEjPZDWUfkzv8-aAPIxCnWttCE4waca8NnaAhx7Z1wNKXA73chXQit1Q/exec"
-  allow="clipboard-write"></iframe>
+<iframe id="app" title="Acceso de remolques a Mantenimiento" allow="clipboard-write"></iframe>
+<div id="ayuda">¿No carga o aparece un error de Google? <a id="directo" href="#">Abrir directo</a></div>
 <script>
-  document.getElementById('app').addEventListener('load',function(){document.getElementById('cargando').hidden=true;});
-  setTimeout(function(){document.getElementById('cargando').hidden=true;},8000);
-  if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
+  // ⬇️ ÚNICO DATO QUE CAMBIAS: la URL de tu aplicación web de Apps Script (termina en /exec)
+  var APP_URL = 'https://script.google.com/macros/s/AKfycbw9TxJidIjmVbEEjPZDWUfkzv8-aAPIxCnWttCE4waca8NnaAhx7Z1wNKXA73chXQit1Q/exec';
+
+  var frame = document.getElementById('app');
+  var carga = document.getElementById('cargando');
+  frame.src = APP_URL;
+  document.getElementById('directo').href = APP_URL;
+  frame.addEventListener('load', function(){ carga.hidden = true; });
+  setTimeout(function(){ carga.hidden = true; }, 8000);
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(function(){}); }
 </script>
 </body>
 </html>
