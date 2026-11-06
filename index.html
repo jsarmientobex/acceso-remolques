@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Remolques BEX · JZ-Porvenir</title>
+<meta name="theme-color" content="#0066CC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Remolques BEX">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html,body{margin:0;height:100%;background:#F3F5F8;font-family:"League Spartan","Segoe UI",Roboto,Arial,sans-serif}
+  body{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px);box-sizing:border-box}
+  iframe{display:block;width:100%;height:100%;border:0}
+  #cargando{position:fixed;inset:0;display:grid;place-items:center;color:#5F6B7A;font-size:17px;background:#F3F5F8}
+  #cargando img{width:96px;height:96px;display:block;margin:0 auto 12px}
+</style>
+</head>
+<body>
+<div id="cargando"><div><img src="icon-192.png" alt="">Cargando…</div></div>
+<!-- ⬇️ Pega aquí la URL de tu aplicación web de Apps Script (termina en /exec) -->
+<iframe id="app" title="Acceso de remolques a Mantenimiento"
+  src="https://script.google.com/macros/s/PEGA_AQUI_TU_ID/exec"
+  allow="clipboard-write"></iframe>
+<script>
+  document.getElementById('app').addEventListener('load',function(){document.getElementById('cargando').hidden=true;});
+  setTimeout(function(){document.getElementById('cargando').hidden=true;},8000);
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
+</script>
+</body>
+</html>
